@@ -41,6 +41,32 @@
 - 招牌轻微闪烁、自动门偶发开合、交通灯缓慢轮换、路面积水反射灯光
 - 湿地面上的暖色与冷色反光、霓虹层次、冷暖对比
 
+## 复现信息 / Reproduction
+
+本项目由以下模型与 Agent 环境生成、迭代和验证。信息按本次会话的实际运行环境记录，便于其他人使用同一提示词时对照复现。
+
+| 项目 | 信息 |
+| --- | --- |
+| 原始提示词 | [PROMPT.md](PROMPT.md)（保留原文） |
+| 模型标识 | `deepseek-v4.1-flash` |
+| Agent 框架 | DeepSeek Harness（DSH） |
+| Agent 客户端 | DSH Desktop `2.0.18` |
+| Agent 能力 | 本地 PowerShell / Node.js 工具调用、代码生成、无头 Chromium 渲染与截图检查 |
+| 场景技术 | Three.js `0.170.0`（WebGL2）、程序化几何与 Canvas 程序化贴图；无外部模型/贴图素材 |
+| 单文件构建 | esbuild-wasm `0.28.2` |
+| 截图验证 | Playwright Core `1.64.1` + Playwright Chromium revision `1243`（headless / SwiftShader） |
+| 运行工具链 | Node.js `v24.17.0`、Git `2.55.0`、Windows `10.0.17763` |
+| 生成时间 | 2026-10-21（Asia/Shanghai） |
+
+### 复现步骤
+
+1. 在与上表一致的 DeepSeek Harness 环境中，使用 `deepseek-v4.1-flash` 模型，并将 [PROMPT.md](PROMPT.md) 的原文作为任务提示。
+2. 保持同样的核心约束：Three.js 程序化建模、Canvas 程序化贴图、不引入外部 3D/图片素材，并用无头浏览器反复渲染截图检查构图、材质与动效。
+3. 直接打开最终生成的 [index.html](index.html) 即可体验；如需从源码重建，可安装 `three@0.170.0` 和 `esbuild-wasm@0.28.2` 后参考 `build.mjs`。当前 `build.mjs` 从项目上一级 `.deps/node_modules` 读取本地构建依赖，而该开发目录不在仓库内，重建时需要准备或调整对应依赖路径。
+4. 仓库中的 `preview*.png` 是本次生成结果的固定参考，可用于与自己的复现结果逐项对照。
+
+> 生成式模型的采样具有随机性，浏览器字体、GPU、驱动和逐帧时机会影响截图结果，因此不能保证像素级完全一致。使用同一模型、Agent 框架和原始提示词，并保留同样的场景和技术约束，可以得到高度接近的结果。
+
 ## 结构
 
 - [PROMPT.md](PROMPT.md) — 本项目原始提示词
