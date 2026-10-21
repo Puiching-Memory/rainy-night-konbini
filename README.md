@@ -43,6 +43,7 @@
 
 ## 结构
 
+- [PROMPT.md](PROMPT.md) — 本项目原始提示词
 - `index.html` — 最终可独立打开的作品（脚本已内联）
 - `src/` — 场景源码
 - `index.template.html` — 页面模板
